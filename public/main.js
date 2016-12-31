@@ -12,8 +12,9 @@ $(function () {
 		$('.time .day').text(msg.day+" day(s)");
 	}
 
-	if (msg.hrs !== 0 && msg.day !== 0) {
+	if (msg.hrs !== 0) {
 		$('.time .hours').text(("0"+msg.hrs).slice(-2));
+		$('.time .hours_blink.blink_me').show();
 	} else {
 		$('.time .hours_blink.blink_me').hide();
 	}

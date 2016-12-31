@@ -2,20 +2,27 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
+var time;
 
 app.use(express.static(__dirname +'/public'));
 
-/*app.get('/',function (req,res) {
-	res.send("hey there fuckers");
+app.get('/updatetime/:hrs/:min',function (req,res) {
+	// if (typeof req.param2 === 'undefined') {
+	// 	param2 = 0;
+	// }
 
-});*/
+	// console.log(req.params.param1);
+	time = Math.floor((Date.now())/1000)+parseInt(req.params.hrs)*60*60+parseInt(req.params.min)*60;
+	res.send("yo");
+
+});
 
 http.listen(3000,function () {
 	console.log('listen');
 })
 console.log(Date.now());
-var time = Math.floor((Date.now()+76005000)/1000);
+
+time = Math.floor((Date.now()+15000)/1000);
 
 io.on('connection',function (socket) {
 	console.log('who connected now?? ');
@@ -29,17 +36,7 @@ io.on('connection',function (socket) {
 		}
 	},1000)*/
 
-	function init() {
-		setTimeout(function () {
-			var diffTime = time- Math.floor(Date.now()/1000);
-			tmObj = timehs(diffTime);
-			console.log(tmObj);
-			io.emit("time", tmObj);
-			if (diffTime > 0) {
-				init();
-			}
-		},1000);
-	}
+	
 
 	init();
 
@@ -47,6 +44,18 @@ io.on('connection',function (socket) {
 		console.log('damm s/he(*) got disconnected');
 	})
 })
+
+function init() {
+	setTimeout(function () {
+		var diffTime = time- Math.floor(Date.now()/1000);
+		tmObj = timehs(diffTime);
+		console.log(tmObj);
+		io.emit("time", tmObj);
+		if (diffTime > 0) {
+			init();
+		}
+	},1000);
+}
 
 function timehs(time) {
 	var sec =0,min=0,hrs=0,day=0
