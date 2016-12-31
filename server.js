@@ -15,7 +15,7 @@ http.listen(3000,function () {
 	console.log('listen');
 })
 console.log(Date.now());
-var time = Math.floor((Date.now()+1476005000)/1000);
+var time = Math.floor((Date.now()+76005000)/1000);
 
 io.on('connection',function (socket) {
 	console.log('who connected now?? ');

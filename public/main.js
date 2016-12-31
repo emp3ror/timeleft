@@ -13,10 +13,12 @@ $(function () {
 	}
 
 	if (msg.hrs !== 0 && msg.day !== 0) {
-		$('.time .hours').text(msg.hrs+" : ");
+		$('.time .hours').text(("0"+msg.hrs).slice(-2));
+	} else {
+		$('.time .hours_blink.blink_me').hide();
 	}
 
-	$('.time .minute').text(msg.min+" : ");
-	$('.time .second').text(msg.sec+" ");
+	$('.time .minute').text(("0"+msg.min).slice(-2));
+	$('.time .second').text(("0"+msg.sec).slice(-2));
 	})
 });
